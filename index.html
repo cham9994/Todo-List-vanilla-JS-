@@ -1,16 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Parcel Bundler</title>
+  <title>Todo-List</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
   <link rel="stylesheet" href="./scss/main.scss">
+  <!-- Google Fonts -->
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Yeon+Sung&display=swap" rel="stylesheet">
   <script defer src="./js/main.js"></script>
 </head>
+
 <body>
-  <h1>Hello Parcel!!</h1>
-  <img src="./images/logo.png" alt="Zerone">
+  <div class="wrapper">
+    <section class="header">
+      <h1>TODO</h1>
+    </section>
+    <section class="input">
+      <form action="">
+        <input type="text" placeholder="할 일을 입력해주세요!">
+        <button><span class="material-symbols-outlined">
+            done
+          </span></button>
+      </form>
+    </section>
+    <section class="task-list">
+      <ul>
+        <li>
+          <div>
+            <input type="checkbox"><label for="">리액트 공부하기</label>
+          </div>
+          <div>
+            <button>삭제</button>
+          </div>
+        </li>
+        <li>
+          <div>
+            <input type="checkbox"><label for="">런닝 2km 달리기</label>
+          </div>
+          <div>
+            <button>삭제</button>
+          </div>
+        </li>
+        <li>
+          <div>
+            <input type="checkbox"><label for="">맛있는거 먹기</label>
+          </div>
+          <div>
+            <button>삭제</button>
+          </div>
+        </li>
+
+      </ul>
+      <div class="control">
+        <div>남은목록</div>
+        <div>모든목록</div>
+        <div>완료목록 보기</div>
+        <div>완료목록 삭제</div>
+      </div>
+
+
+    </section>
+  </div>
+
 </body>
+
 </html>
