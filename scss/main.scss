@@ -1,5 +1,16 @@
+$icon-color: #fcca46;
+$bg-color: #e5e5e5;
+$white-color: #fff;
+$placeholder-color: #7d8597;
+$line-color: #adb5bd;
+
 * {
   box-sizing: border-box;
+  font-family: 'Yeon Sung', cursive;
+}
+
+body {
+  background: $bg-color;
   font-family: 'Yeon Sung', cursive;
 }
 
@@ -15,53 +26,77 @@
 section.header {
   margin-top: 3rem;
   margin-bottom: 1rem;
+  h1 {
+    font-size: 2.5rem;
+  }
 }
 
 // INPUT 
 section.input {
-  border: 1px solid;
-  padding: 1rem;
+  background: $white-color;
+  border-radius: 0.5rem;
+  padding: 1rem 0 1rem 1rem;
   margin-bottom: 2rem;
   width: 400px;
   form {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     input {
       width: 80%;
-      padding: 0.5rem;
-      font-size: 1rem;
+      font-size: 1.2rem;
       outline: none;
+      border: none;
     }
     button {
       width: 15%;
       border: none;
-      background-color: #fff;
+      background-color: $white-color;
       cursor: pointer;
+      margin-right: 0.5rem;
     }
   }
 }
 
 // TASK LIST
 section.task-list {
-  border: 1px solid;
   width: 400px;
+  background-color: $white-color;
+  border-radius: 0.5rem;
   li {
     display: flex;
     justify-content: space-between;
-    padding: 1rem;
-    border-bottom: 1px solid;
+    padding: 1.2rem;
+    border-bottom: 1px solid $line-color;
     > div {
       display: flex;
       align-items: center;
-      label {
-        line-height: 1px;
+      > button {
+        background: $white-color;
+        border: none;
+        cursor: pointer;
       }
+      > span:first-child {
+        margin-right: 0.5rem;
+      }
+    }
+    .input-text {
+      border: none;
+      width: 250px;
+      // border: 1px solid;
+      margin-left: 1rem;
+      line-height: 1.5rem;
+    }
+    .material-symbols-outlined {
+      font-size: 1.2rem;
+      // font-weight: lighter;
+      color: $icon-color;
     }
   }
   div.control {
     padding: 0.5rem;
     display: flex;
     justify-content: space-evenly;
+    color: $placeholder-color;
   }
 }
 }
