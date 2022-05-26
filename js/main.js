@@ -4,7 +4,7 @@ import axios from 'axios'
 // API 정보
 const API_URL = 'https://asia-northeast3-heropy-api.cloudfunctions.net/api/todos'
 const API_KEY = 'FcKdtJs202204'
-const USER_NAME = 'GyeongChan'
+const USER_NAME = 'KDT2_JangGyeongChan'
 
 // 할 일 등록하기
 async function createTodo() {
