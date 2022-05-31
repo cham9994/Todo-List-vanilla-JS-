@@ -56,7 +56,14 @@ section.input {
       border: none;
       background-color: $white-color;
       cursor: pointer;
-      margin-right: 0.5rem;
+      margin-right: 0.2rem;
+      > span {
+        font-weight: 800;
+        transition: all 0.1s ease-in;
+        &:hover {
+          transform: scale(1.4);
+        }
+      }
     }
   }
 }
@@ -74,7 +81,7 @@ section.task-list {
   li {
     display: flex;
     justify-content: space-between;
-    padding: 1.2rem;
+    padding: 1.2rem 1rem;
     border-bottom: 1px solid $line-color;
     > div {
       display: flex;
@@ -83,23 +90,47 @@ section.task-list {
         background: $white-color;
         border: none;
         cursor: pointer;
+        display: flex;
       }
-      > span:first-child {
+      > .todo-text {
         margin-right: 0.5rem;
         cursor: pointer;
+        transition: all 0.1s ease-in;
+        width: 20px;
+        &:hover {
+          transform: scale(1.1);
+        }
+
+        &-true {
+          text-decoration: line-through solid $placeholder-color;
+          color: $placeholder-color;
+          &:hover {
+            color: #000;
+          }
+        }
+      }
+      > span:last-child {
+        cursor: pointer;
+        transition: all 0.1s ease-in;
+        &:hover {
+          color: $icon-color;
+          transform: scale(1.05);
+        }
       }
     }
     .input-text {
       border: none;
       width: 250px;
-      // border: 1px solid;
       margin-left: 1rem;
       line-height: 1.5rem;
     }
     .material-symbols-outlined {
-      font-size: 1.2rem;
-      // font-weight: lighter;
       color: $icon-color;
+      font-weight: 600;
+      transition: all 0.1s ease-in;
+      &:hover {
+        transform: scale(1.3);
+      }
     }
   }
 }

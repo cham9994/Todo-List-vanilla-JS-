@@ -11,7 +11,7 @@ const inputTextEl = document.querySelector('.input-text')
 const formEl = document.querySelector('.todo-form')
 const todoEl = document.querySelector('.todos-list')
 const todoSection = document.querySelector('.task-list')
-const checkEl = document.querySelector('#check')
+const checkEl = document.querySelectorAll('#check')
 
 
 // Todo 정보
@@ -19,6 +19,20 @@ let todos = []
 
 // Event
 formEl.addEventListener('submit', (e) => onSubmitTodo(e, inputTextEl.value))
+
+todoEl.addEventListener('click', e => {
+  if (e.target.dataset.action === 'delete') {
+    const value = e.target.parentNode.value
+    deleteTodo(value)
+  }
+})
+
+todoEl.addEventListener('click', e => {
+  if(e.target.dataset.action === 'check') {
+    const value = e.target.parentNode.value
+    onCheck(value)
+  }
+})
 
 
 
@@ -86,28 +100,52 @@ async function deleteTodo(value) {
   renderTodos(todos)
 }
 
-// 할 일 완료
-function todoDone () {
-  const checkEl = document.querySelectorAll('#check')
-  checkEl.forEach((item) => {
-    item.addEventListener('click', (e) => {
-      e.preventDefault()
-      item.classList.toggle('todo-checked')
-      item.classList.toggle('todo-unChecked')
-    })
+// 할 일 완료 업데이트
+async function putTodo(checkItem) {
+  const {title, order, done, id} = checkItem
+  const res = await axios({
+    url: `${API_URL}/${checkItem.id}`,
+    method: 'PUT',
+    headers: {
+      "content-type": "application/json",
+      "apikey": API_KEY,
+      'username': USER_NAME
+    },
+    data: {
+      title,
+      order,
+      done: !done
+    }
   })
+  // todos에 반영
+  const targetIndex = todos.findIndex((item) => item.id === id)
+  todos[targetIndex] = {
+    ...todos[targetIndex],
+    title,
+    order,
+    done: !done,
+  }
+  renderTodos(todos)
+  return res
 }
-  
+
+// 할 일 완료 체크
+function onCheck(value) {
+  const checkItem = todos.find((item) => item.id === value)
+  putTodo(checkItem)
+}
 
 // Rendering 함수
 function renderTodos(todos) {
   const todosEl = todos.map((it) => /* html */`
     <li>
       <div>
-        <span class="material-symbols-outlined" class="todo-unChecked" data-action='check' id='check'>
-          radio_button_unchecked
-        </span>
-        <span>${it.title}</span>
+        <button value=${it.id}>
+          <span class="material-symbols-outlined" class="todo-unChecked" data-action='check' id='check' value=${it.id} data-action='check'>
+            ${it.done === false ? 'radio_button_unchecked' : 'check_circle' }
+          </span>
+        </button>
+        <span class="todo-text-${it.done}" value=${it.id}>${it.title}</span>
       </div>
         <div>
           <button class="delete-btn" value=${it.id} >
@@ -122,12 +160,5 @@ function renderTodos(todos) {
   todoEl.innerHTML = todoTitles
   todoSection.append(todoEl)
 }
-
-todoEl.addEventListener('click', e => {
-  if (e.target.dataset.action === 'delete') {
-    const value = e.target.parentNode.value
-    deleteTodo(value)
-  }
-})
 
 onInit()
