@@ -23,70 +23,39 @@
       <h1>TODO</h1>
     </section>
     <section class="input">
-      <form action="">
-        <input type="text" placeholder="할 일을 입력해주세요!">
-        <button><span class="material-symbols-outlined">
+      <form class="todo-form" action="" >
+        <input class="input-text" type="text" placeholder="할 일을 입력해주세요!">
+        <button type="submit"><span class="material-symbols-outlined">
             done
           </span></button>
       </form>
     </section>
     <section class="task-list">
-      <ul>
-        <li>
-          <div>
-            <span class="material-symbols-outlined">
+      <ul class="todos-list">
+        <!-- <li>
+          <div> 
+            <span class="material-symbols-outlined" class="todo-unChecked" data-action='check'>
               radio_button_unchecked
             </span>
             <span>JS 딥 다이브 뿌시기</span>
           </div>
           <div>
-            <button>
-              <span class="material-symbols-outlined">
+            <button class="delete-btn">
+              <span class="material-symbols-outlined" data-action='delete'>
                 close
               </span>
             </button>
           </div>
-        </li>
-        <li>
-          <div>
-            <span class="material-symbols-outlined">
-              radio_button_unchecked
-            </span>
-            <span>리액트 공부하기!</span>
-          </div>
-          <div>
-            <button>
-              <span class="material-symbols-outlined">
-                close
-              </span>
-            </button>
-          </div>
-        </li>
-        <li>
-          <div>
-            <span class="material-symbols-outlined">
-              radio_button_unchecked
-            </span>
-            <span>런닝 뛰기</span>
-          </div>
-          <div>
-            <button>
-              <span class="material-symbols-outlined">
-                close
-              </span>
-            </button>
-          </div>
-        </li>
-
+        </li> -->
       </ul>
+    </section>
+    <section class="control-menu">
       <div class="control">
-        <div>남은목록</div>
-        <div>모든목록</div>
-        <div>완료목록 보기</div>
-        <div>완료목록 삭제</div>
+        <button><div>남은목록</div></button>
+        <button><div>모든목록</div></button>
+        <button><div>완료목록 보기</div></button>
+        <button><div>완료목록 삭제</div></button>
       </div>
-
-
     </section>
   </div>
 
