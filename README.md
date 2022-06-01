@@ -10,20 +10,20 @@
 
 ### 필수 요구사항
 
-- [ ] 할 일 목록(list)을 조회(Read)할 수 있어야 합니다.
-- [ ] 할 일 항목(item)을 추가(Create)할 수 있어야 합니다.
-- [ ] 할 일 항목을 수정(Update)할 수 있어야 합니다.
-- [ ] 할 일 항목을 삭제(Delete)할 할 수 있어야 합니다.
-- [ ] 실제 서비스로 배포하고 접근 가능한 링크를 추가해야 합니다.
+- [x] 할 일 목록(list)을 조회(Read)할 수 있어야 합니다.
+- [x] 할 일 항목(item)을 추가(Create)할 수 있어야 합니다.
+- [x] 할 일 항목을 수정(Update)할 수 있어야 합니다.
+- [x] 할 일 항목을 삭제(Delete)할 할 수 있어야 합니다.
+- [x] 실제 서비스로 배포하고 접근 가능한 링크를 추가해야 합니다.
 
 ### 선택 요구사항
 
 - [ ] 할 일 항목의 순서를 바꿀 수 있도록 만들어 보세요.
-- [ ] 할 일을 완료하지 않은 항목과 완료한 항목을 분류해서 출력해 보세요.
-- [ ] 할 일을 완료한 항목을 한번에 삭제할 수 있도록 만들어 보세요.
+- [x] 할 일을 완료하지 않은 항목과 완료한 항목을 분류해서 출력해 보세요.
+- [x] 할 일을 완료한 항목을 한번에 삭제할 수 있도록 만들어 보세요.
 - [ ] 할 일 항목의 최신 수정일을 표시해 보세요.
-- [ ] 최초 API 요청(Request)에 대한 로딩 애니메이션을 추가해 보세요.
-- [ ] SCSS, Bootstrap 등을 구성해 프로젝트를 최대한 예쁘게(?) 만들어 보세요.
+- [x] 최초 API 요청(Request)에 대한 로딩 애니메이션을 추가해 보세요.
+- [x] SCSS, Bootstrap 등을 구성해 프로젝트를 최대한 예쁘게(?) 만들어 보세요.
 
 ## API 사용법
 
@@ -50,11 +50,11 @@ async function createTodo() {
     method: 'POST',
     headers: {
       'content-type': 'application/json',
-      'apikey': 'FcKdtJs202110',
-      'username': 'ParkYoungWoong'
+      apikey: 'FcKdtJs202110',
+      username: 'ParkYoungWoong'
     },
     data: {
-      "title": "할 일 관리 프로젝트 과제 PR 생성"
+      title: '할 일 관리 프로젝트 과제 PR 생성'
     }
   })
   console.log(data)
@@ -66,7 +66,7 @@ async function createTodo() {
 전체 할 일 목록을 조회합니다.
 
 ```curl
-curl -X 'GET' \ 
+curl -X 'GET' \
 https://asia-northeast3-heropy-api.cloudfunctions.net/api/todos
 ```
 
@@ -116,7 +116,7 @@ undefined
 할 일 목록의 순서를 변경합니다.
 
 ```curl
-curl -X 'PUT' \ 
+curl -X 'PUT' \
 https://asia-northeast3-heropy-api.cloudfunctions.net/api/todos/reorder
 ```
 
@@ -149,14 +149,14 @@ true
 할 일 항목을 새롭게 추가합니다.
 
 ```curl
-curl -X 'POST' \ 
+curl -X 'POST' \
 https://asia-northeast3-heropy-api.cloudfunctions.net/api/todos
 ```
 
 ```plaintext
 @param {String} title - 할 일의 제목 (필수)
 @param {Number} order - 할 일의 순서
-@return {Object} - 생성된 할 일 항목 객체 
+@return {Object} - 생성된 할 일 항목 객체
 ```
 
 요청 데이터 예시:
@@ -186,7 +186,7 @@ https://asia-northeast3-heropy-api.cloudfunctions.net/api/todos
 특정 할 일 항목을 수정합니다.
 
 ```curl
-curl -X 'PUT' \ 
+curl -X 'PUT' \
 https://asia-northeast3-heropy-api.cloudfunctions.net/api/todos/:todoId
 ```
 
@@ -194,7 +194,7 @@ https://asia-northeast3-heropy-api.cloudfunctions.net/api/todos/:todoId
 @param {String} title - 할 일의 제목 (필수)
 @param {Boolean} done - 할 일의 완료 여부 (필수)
 @param {Number} order - 할 일의 순서 (필수)
-@return {Object} - 수정된 할 일 항목 객체  
+@return {Object} - 수정된 할 일 항목 객체
 ```
 
 요청 데이터 예시:
@@ -225,12 +225,12 @@ https://asia-northeast3-heropy-api.cloudfunctions.net/api/todos/:todoId
 특정 할 일 항목을 삭제합니다.
 
 ```curl
-curl -X 'DELETE' \ 
+curl -X 'DELETE' \
 https://asia-northeast3-heropy-api.cloudfunctions.net/api/todos/:todoId
 ```
 
 ```plaintext
-@return {Boolean} - 할 일 항목의 삭제 여부  
+@return {Boolean} - 할 일 항목의 삭제 여부
 ```
 
 요청 데이터 예시:

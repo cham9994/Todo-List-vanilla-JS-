@@ -52,7 +52,7 @@ clearCompleteItemsBtn.addEventListener('click', clearCompleteTodos)
 todoEl.addEventListener('click', (e) => onEdit(e))
 
 // 처음 실행
-async function onInit() {
+async function Init() {
   await getTodo()
   renderTodos(todos)
 }
@@ -96,6 +96,10 @@ async function createTodo(todosValue, orderNum) {
 
 function onSubmitTodo(e, todosValue) {
   e.preventDefault()
+  if (todosValue === '') {
+    alert('빈 칸은 입력할 수 없습니다.')
+    return
+  }
   createTodo(todosValue, todos.length + 1)
   inputTextEl.value = ''
   inputTextEl.focus()
@@ -274,7 +278,12 @@ function renderTodos(todos) {
           </span>
         </button>
         <button value=${it.id} class="todo-text-parent">
-          <span id="todo-text" class="todo-text-${it.done}" data-action='edit'>
+          <span id="todo-text" class="todo-text-${
+            it.done
+          }" data-action='edit' data-title=${new Date(it.createdAt)
+      .toLocaleString()
+      .replace(/(\s*)/g, '')
+      .substr(0, 15)}>
             ${it.title}
           </span>
         </button>
@@ -291,9 +300,8 @@ function renderTodos(todos) {
   )
   const todoTitles = todosEl.join('')
   todoEl.innerHTML = todoTitles
-  // onEdit()
   todoSection.append(todoEl)
   countTodos(todos)
 }
 
-onInit()
+Init()

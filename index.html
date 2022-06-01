@@ -18,21 +18,22 @@
 </head>
 
 <body>
-  <div class="wrapper">
-    <section class="header">
-      <h1>TODO</h1>
-    </section>
-    <section class="input">
-      <form class="todo-form" action="">
-        <input class="input-text" type="text" placeholder="할 일을 입력해 주세요!">
-        <button type="submit"><span class="material-symbols-outlined">
-            done
-          </span></button>
-      </form>
-    </section>
-    <section class="task-list">
-      <ul class="todos-list">
-        <!-- <li>
+  <div class="container">
+    <div class="wrapper">
+      <section class="header">
+        <h1>TODO</h1>
+      </section>
+      <section class="input">
+        <form class="todo-form" action="">
+          <input class="input-text" type="text" placeholder="할 일을 입력해 주세요!">
+          <button type="submit"><span class="material-symbols-outlined">
+              done
+            </span></button>
+        </form>
+      </section>
+      <section class="task-list">
+        <ul class="todos-list">
+          <!-- <li>
           <div> 
             <button value=${it.id}>
               <span class="material-symbols-outlined" class="todo-unChecked" data-action='check'>
@@ -49,21 +50,22 @@
             </button>
           </div>
         </li> -->
-      </ul>
-    </section>
-    <section class="control-menu">
-      <div class="control">
-        <div><button class="left-items"><span class="count">1</span> items left</button></div>
-        <div class="control-group">
-          <div><button class="all-items">All</button></button></div>
-          <div><button class="active-items">Active</button></div>
-          <div><button class="complete-items">Completed</button></div>
-        </div>
-        <div><button class="clear-complete-items">Clear Completed</button></div>
-    </section>
-  </div>
-  <div class="lds-heart loading">
-    <div></div>
+        </ul>
+      </section>
+      <section class="control-menu">
+        <div class="control">
+          <div><button class="left-items"><span class="count">1</span> items left</button></div>
+          <div class="control-group">
+            <div><button class="all-items">All</button></button></div>
+            <div><button class="active-items">Active</button></div>
+            <div><button class="complete-items">Completed</button></div>
+          </div>
+          <div><button class="clear-complete-items">Clear Completed</button></div>
+      </section>
+    </div>
+    <div class="lds-heart loading">
+      <div></div>
+    </div>
   </div>
 
 </body>
