@@ -39,8 +39,8 @@ section.input {
   margin-top: 1rem;
   margin-bottom: 2rem;
   width: 400px;
-  // box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
-  box-shadow: rgb(85, 91, 255) 0px 0px 0px 3px, rgb(31, 193, 27) 0px 0px 0px 6px, rgb(255, 217, 19) 0px 0px 0px 9px, rgb(255, 156, 85) 0px 0px 0px 12px, rgb(255, 85, 85) 0px 0px 0px 15px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  // box-shadow: rgb(85, 91, 255) 0px 0px 0px 3px, rgb(31, 193, 27) 0px 0px 0px 6px, rgb(255, 217, 19) 0px 0px 0px 9px, rgb(255, 156, 85) 0px 0px 0px 12px, rgb(255, 85, 85) 0px 0px 0px 15px;
   
   form {
     display: flex;
@@ -145,14 +145,31 @@ section.task-list {
   .control{
   padding: 0.5rem;
   display: flex;
-  justify-content: space-evenly;
-  > button {
-    outline: none;
-    border: none;
-    background-color: $icon-color;
-    color: #343a40;
-    font-size: 1rem;
-    cursor: pointer;
+  justify-content: space-between;
+  > div {
+    button {
+      outline: none;
+      border: none;
+      background-color: $icon-color;
+      color: #4a4e69;
+      font-size: 0.9rem;
+      cursor: pointer;
+      &:hover {
+        color: #000;
+      }
+      .count {
+        color: #ff006e;
+        font-size: 1.1rem;
+        vertical-align: top;
+        &.active {
+          color: $icon-color;
+        }
+      }
+    };
+  }
+  .control-group{
+    display: flex;
+    align-items: center;
   }
   }
 }

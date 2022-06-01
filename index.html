@@ -23,8 +23,8 @@
       <h1>TODO</h1>
     </section>
     <section class="input">
-      <form class="todo-form" action="" >
-        <input class="input-text" type="text" placeholder="할 일을 입력해주세요!">
+      <form class="todo-form" action="">
+        <input class="input-text" type="text" placeholder="할 일을 입력해 주세요!">
         <button type="submit"><span class="material-symbols-outlined">
             done
           </span></button>
@@ -53,11 +53,13 @@
     </section>
     <section class="control-menu">
       <div class="control">
-        <button><div>남은목록</div></button>
-        <button><div>모든목록</div></button>
-        <button><div>완료목록 보기</div></button>
-        <button><div>완료목록 삭제</div></button>
-      </div>
+        <div><button class="left-items"><span class="count">1</span> items left</button></div>
+        <div class="control-group">
+          <div><button class="all-items">All</button></button></div>
+          <div><button class="active-items">Active</button></div>
+          <div><button class="complete-items">Completed</button></div>
+        </div>
+        <div><button class="clear-complete-items">Clear Completed</button></div>
     </section>
   </div>
 
