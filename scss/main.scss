@@ -91,32 +91,35 @@ section.task-list {
         border: none;
         cursor: pointer;
         display: flex;
-      }
-      > .todo-text {
-        margin-right: 0.5rem;
-        cursor: pointer;
-        transition: all 0.1s ease-in;
-        width: 20px;
-        &:hover {
-          transform: scale(1.1);
+        > #todo-text {
+          font-size: 1rem;
         }
-
-        &-true {
-          text-decoration: line-through solid $placeholder-color;
-          color: $placeholder-color;
+        > .todo-text {
+          margin-right: 0.5rem;
+          cursor: pointer;
+          transition: all 0.1s ease-in;
+          width: 20px;
           &:hover {
-            color: #000;
+            transform: scale(1.1);
+          }
+          &-true {
+            text-decoration: line-through solid $placeholder-color;
+            color: $placeholder-color;
+            &:hover {
+              color: #000;
+            }
+          }
+        }
+        :last-child {
+          cursor: pointer;
+          transition: all 0.1s ease-in;
+          &:hover {
+            color: #f6aa1c;
+            transform: scale(1.05);
           }
         }
       }
-      > span:last-child {
-        cursor: pointer;
-        transition: all 0.1s ease-in;
-        &:hover {
-          color: $icon-color;
-          transform: scale(1.05);
-        }
-      }
+      
     }
     .input-text {
       border: none;
@@ -175,3 +178,60 @@ section.task-list {
 }
 }
 
+// Loading
+.lds-heart {
+  display: inline-block;
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  transform: rotate(45deg);
+  transform-origin: 40px 40px;
+  top: 60%;
+  left: 48%;
+}
+.lds-heart div {
+  top: 32px;
+  left: 32px;
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  background: #ec0868;
+  animation: lds-heart 1.2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+.lds-heart div:after,
+.lds-heart div:before {
+  content: " ";
+  position: absolute;
+  display: block;
+  width: 32px;
+  height: 32px;
+  background: #ec0868;
+}
+.lds-heart div:before {
+  left: -24px;
+  border-radius: 50% 0 0 50%;
+}
+.lds-heart div:after {
+  top: -24px;
+  border-radius: 50% 50% 0 0;
+}
+@keyframes lds-heart {
+  0% {
+    transform: scale(0.95);
+  }
+  5% {
+    transform: scale(1.1);
+  }
+  39% {
+    transform: scale(0.85);
+  }
+  45% {
+    transform: scale(1);
+  }
+  60% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(0.9);
+  }
+}

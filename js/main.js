@@ -17,7 +17,7 @@ const completeItemsBtn = document.querySelector('.complete-items')
 const allItemsBtn = document.querySelector('.all-items')
 const activeItemsBtn = document.querySelector('.active-items')
 const clearCompleteItemsBtn = document.querySelector('.clear-complete-items')
-const todoTextEl = document.querySelector('#todo-text')
+const loadingEl = document.querySelector('.loading')
 
 // Todo 정보
 let todos = []
@@ -49,7 +49,7 @@ activeItemsBtn.addEventListener('click', () => toggleComplete(false))
 
 clearCompleteItemsBtn.addEventListener('click', clearCompleteTodos)
 
-todoTextEl.addEventListener('click', (e) => console.log('글 수정'))
+todoEl.addEventListener('click', (e) => onEdit(e))
 
 // 처음 실행
 async function onInit() {
@@ -59,37 +59,39 @@ async function onInit() {
 
 // 할 일 가져오기
 async function getTodo() {
-  const res = await axios({
-    url: API_URL,
-    method: 'GET',
-    headers: {
-      'content-type': 'application/json',
-      apikey: API_KEY,
-      username: USER_NAME
-    }
-  })
-  res.data.forEach((item) => todos.push(item))
-  console.log(res)
-  return todos
+  showLoading(true)
+  try {
+    const res = await request({
+      method: 'GET'
+    })
+    res.data.forEach((item) => todos.push(item))
+    return res
+  } catch (err) {
+    alert(err)
+  } finally {
+    showLoading(false)
+  }
 }
 
 // 할 일 등록하기
 async function createTodo(todosValue, orderNum) {
-  const res = await axios({
-    url: API_URL,
-    method: 'POST',
-    headers: {
-      'content-type': 'application/json',
-      apikey: API_KEY,
-      username: USER_NAME
-    },
-    data: {
-      title: todosValue,
-      order: orderNum
-    }
-  })
-  todos.push(res.data)
-  renderTodos(todos)
+  showLoading(true)
+  try {
+    const res = await request({
+      method: 'POST',
+      data: {
+        title: todosValue,
+        order: orderNum
+      }
+    })
+    todos.push(res.data)
+    return res
+  } catch (err) {
+    alert(err)
+  } finally {
+    showLoading(false)
+    renderTodos(todos)
+  }
 }
 
 function onSubmitTodo(e, todosValue) {
@@ -101,47 +103,73 @@ function onSubmitTodo(e, todosValue) {
 
 // 할 일 삭제하기
 async function deleteTodo(value) {
-  todos = todos.filter((item) => item.id !== value)
-  const res = await axios({
-    url: `${API_URL}/${value}`,
-    method: 'DELETE',
-    headers: {
-      'content-type': 'application/json',
-      apikey: API_KEY,
-      username: USER_NAME
-    }
-  })
-  console.log(todos)
-  renderTodos(todos)
+  try {
+    todos = todos.filter((item) => item.id !== value)
+    const res = await request({
+      url: `${API_URL}/${value}`,
+      method: 'DELETE'
+    })
+    return res
+  } catch (err) {
+    alert(err)
+  } finally {
+    renderTodos(todos)
+  }
 }
 
 // 할 일 완료 업데이트
 async function putTodo(checkItem) {
   const { title, order, done, id } = checkItem
-  const res = await axios({
-    url: `${API_URL}/${checkItem.id}`,
-    method: 'PUT',
-    headers: {
-      'content-type': 'application/json',
-      apikey: API_KEY,
-      username: USER_NAME
-    },
-    data: {
+  try {
+    const res = await request({
+      url: `${API_URL}/${id}`,
+      method: 'PUT',
+      data: {
+        title,
+        order,
+        done: !done
+      }
+    })
+    // todos에 반영
+    const targetIndex = todos.findIndex((item) => item.id === id)
+    todos[targetIndex] = {
+      ...todos[targetIndex],
       title,
       order,
       done: !done
     }
-  })
-  // todos에 반영
-  const targetIndex = todos.findIndex((item) => item.id === id)
-  todos[targetIndex] = {
-    ...todos[targetIndex],
-    title,
-    order,
-    done: !done
+    return res
+  } catch (err) {
+    alert(err)
+  } finally {
+    renderTodos(todos)
   }
-  renderTodos(todos)
-  return res
+}
+
+// 할 일 수정 후 업데이트
+async function putUpdateTodo(updateItem, e) {
+  const { title, id } = updateItem
+  try {
+    const res = await request({
+      url: `${API_URL}/${id}`,
+      method: 'PUT',
+      data: {
+        title,
+        done: false
+      }
+    })
+    // todos에 반영
+    const targetIndex = todos.findIndex((item) => item.id === id)
+    todos[targetIndex] = {
+      ...todos[targetIndex],
+      title
+    }
+    return res
+  } catch (err) {
+    alert(err)
+  } finally {
+    renderTodos(todos)
+  }
 }
 
 // 할 일 완료 체크
@@ -154,7 +182,11 @@ function onCheck(value) {
 function countTodos(todos) {
   const yetTodos = todos.filter((item) => item.done === false)
   let leftItems = yetTodos.length
-  countEl.innerText = `${leftItems}`
+  if (leftItems === 0) {
+    countEl.innerText = ''
+  } else {
+    countEl.innerText = `${leftItems}`
+  }
 }
 
 // 완료 목록 토글
@@ -183,6 +215,51 @@ async function clearCompleteTodos() {
   renderTodos(todos)
 }
 
+// 할 일 텍스트 수정
+async function onEdit(e) {
+  const todosTextEl = document.querySelectorAll('#todo-text')
+  todosTextEl.forEach((editText) => {
+    if (e.target === editText) {
+      editText.contentEditable = true
+      editText.focus()
+      editText.addEventListener('keydown', (e) => {
+        if (e.keyCode === 13) {
+          const value = editText.parentNode.value // 할 일 id
+          const title = editText.innerText
+          editText.contentEditable = false
+          putUpdateTodo({ id: value, title }, e)
+        }
+      })
+    }
+  })
+}
+
+// Loading 처리 함수
+function showLoading(isLoading) {
+  if (isLoading) {
+    loadingEl.style.display = 'block'
+    todoSection.style.display = 'none'
+  } else {
+    loadingEl.style.display = 'none'
+    todoSection.style.display = 'block'
+  }
+}
+
+// Request 함수
+async function request({ url = API_URL, method = '', data = {} }) {
+  const response = await axios({
+    url,
+    method,
+    headers: {
+      'content-type': 'application/json',
+      apikey: API_KEY,
+      username: USER_NAME
+    },
+    data
+  })
+  return response
+}
+
 // Rendering 함수
 function renderTodos(todos) {
   const todosEl = todos.map(
@@ -196,7 +273,11 @@ function renderTodos(todos) {
             ${it.done === false ? 'radio_button_unchecked' : 'check_circle'}
           </span>
         </button>
-        <span id="todo-text" class="todo-text-${it.done}" value=${it.id}>${it.title}</span>
+        <button value=${it.id} class="todo-text-parent">
+          <span id="todo-text" class="todo-text-${it.done}" data-action='edit'>
+            ${it.title}
+          </span>
+        </button>
       </div>
         <div>
           <button class="delete-btn" value=${it.id} >
@@ -210,6 +291,7 @@ function renderTodos(todos) {
   )
   const todoTitles = todosEl.join('')
   todoEl.innerHTML = todoTitles
+  // onEdit()
   todoSection.append(todoEl)
   countTodos(todos)
 }
