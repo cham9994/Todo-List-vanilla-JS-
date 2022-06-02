@@ -1,5 +1,6 @@
 // 모듈 import
 import axios from 'axios'
+import Sortable from 'sortablejs'
 
 // API 정보
 const API_URL = 'https://asia-northeast3-heropy-api.cloudfunctions.net/api/todos'
@@ -121,7 +122,7 @@ async function deleteTodo(value) {
   }
 }
 
-// 할 일 완료 업데이트
+// 할 일 완료 체크 업데이트
 async function putTodo(checkItem) {
   const { title, order, done, id } = checkItem
   try {
@@ -150,23 +151,25 @@ async function putTodo(checkItem) {
   }
 }
 
-// 할 일 수정 후 업데이트
-async function putUpdateTodo(updateItem, e) {
-  const { title, id } = updateItem
+// 할 일 텍스트 수정 후 업데이트
+async function putUpdateTodo(updateItem) {
+  const { title, id, order } = updateItem
   try {
     const res = await request({
       url: `${API_URL}/${id}`,
       method: 'PUT',
       data: {
         title,
-        done: false
+        done: false,
+        order
       }
     })
     // todos에 반영
     const targetIndex = todos.findIndex((item) => item.id === id)
     todos[targetIndex] = {
       ...todos[targetIndex],
-      title
+      title,
+      order
     }
     return res
   } catch (err) {
@@ -223,7 +226,7 @@ async function clearCompleteTodos() {
 async function onEdit(e) {
   const todosTextEl = document.querySelectorAll('#todo-text')
   todosTextEl.forEach((editText) => {
-    if (e.target === editText) {
+    if (e.target === editText && e.target.classList.contains('todo-text-false')) {
       editText.contentEditable = true
       editText.focus()
       editText.addEventListener('keydown', (e) => {
@@ -231,7 +234,7 @@ async function onEdit(e) {
           const value = editText.parentNode.value // 할 일 id
           const title = editText.innerText
           editText.contentEditable = false
-          putUpdateTodo({ id: value, title }, e)
+          putUpdateTodo({ id: value, title })
         }
       })
     }
@@ -268,7 +271,7 @@ async function request({ url = API_URL, method = '', data = {} }) {
 function renderTodos(todos) {
   const todosEl = todos.map(
     (it) => /* html */ `
-    <li>
+    <li order=${it.order} value=${it.id} class="todoLi">
       <div>
         <button value=${it.id}>
           <span class="material-symbols-outlined" class="todo-unChecked" data-action='check' id='check' value=${
@@ -303,5 +306,20 @@ function renderTodos(todos) {
   todoSection.append(todoEl)
   countTodos(todos)
 }
+
+// 드래그하여 리스트 순서 변경
+var sortable = Sortable.create(todoEl, {
+  animation: 150
+  // onEnd: function (e) {
+  //   const order = e.item.getAttribute('order')
+  //   const oldOrder = e.oldIndex
+  //   const newOrder = e.newIndex
+  //   const id = e.item.getAttribute('value')
+  //   const text = e.item.querySelector('#todo-text').innerText
+  //   const changeEl = e.from.querySelectorAll('li')
+  //   const changeOrder = changeEl[newOrder].getAttribute('order')
+  //   putUpdateTodo({ id, title: text, newOrder: changeOrder, oldOrder })
+  // }
+})
 
 Init()

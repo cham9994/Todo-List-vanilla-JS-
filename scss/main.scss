@@ -85,7 +85,7 @@ section.input {
 
 // TASK LIST
 [contenteditable] {
-  max-width: 200px;
+  max-width: 250px;
   outline: 0px solid transparent;
 }
 section.task-list {
@@ -94,6 +94,9 @@ section.task-list {
   border-top-left-radius:0.5rem;
   border-top-right-radius: 0.5rem;
   background-color: $white-color;
+  .todos-list {
+    cursor: move;
+  }
   :last-child{
     border-bottom: none;
   }
@@ -157,6 +160,12 @@ section.task-list {
   }
 }
 
+// Drag and Drop
+[draggable='true'] {
+  background: $white-color;
+}
+
+// Loading Animation
 .control-menu {
   width: 400px;
   padding: 0.3rem;
