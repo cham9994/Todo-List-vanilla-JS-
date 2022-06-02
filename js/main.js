@@ -222,6 +222,19 @@ async function clearCompleteTodos() {
   renderTodos(todos)
 }
 
+// 순서 변경
+async function putOrderTodo(value) {
+  const res = await request({
+    url: `${API_URL}/reorder`,
+    method: 'PUT',
+    data: {
+      todoIds: value
+    }
+  })
+  console.log(res)
+  return res
+}
+
 // 할 일 텍스트 수정
 async function onEdit(e) {
   const todosTextEl = document.querySelectorAll('#todo-text')
@@ -309,17 +322,15 @@ function renderTodos(todos) {
 
 // 드래그하여 리스트 순서 변경
 var sortable = Sortable.create(todoEl, {
-  animation: 150
-  // onEnd: function (e) {
-  //   const order = e.item.getAttribute('order')
-  //   const oldOrder = e.oldIndex
-  //   const newOrder = e.newIndex
-  //   const id = e.item.getAttribute('value')
-  //   const text = e.item.querySelector('#todo-text').innerText
-  //   const changeEl = e.from.querySelectorAll('li')
-  //   const changeOrder = changeEl[newOrder].getAttribute('order')
-  //   putUpdateTodo({ id, title: text, newOrder: changeOrder, oldOrder })
-  // }
+  animation: 150,
+  onEnd: function (e) {
+    const idList = []
+    const todoLiEl = document.querySelectorAll('.todoLi')
+    todoLiEl.forEach((item) => {
+      idList.push(item.getAttribute('value'))
+    })
+    putOrderTodo(idList)
+  }
 })
 
 Init()
