@@ -55,7 +55,7 @@
 
 ## 리스트 글 수정
 
-> contenteditable
+> **contenteditable**
 
 - 모달창을 띄워 수정하는 것은 사용자 경험에 좋지 못하다고 판단했기 때문에 Input창을 띄우려고 했는데 좋은 방법을 발견했습니다.
 
@@ -82,7 +82,7 @@
 
 ## 날짜 정보 표시
 
-> tooltip
+> **tooltip**
 
 - 리스트에는 최대한 할 일만 나타내게 하고싶었기 때문에 tooltip을 통해서는 작성시간을 표시했습니다.
 
@@ -101,7 +101,7 @@
 
 ## Drag & Drop
 
-> [sortable js](https://github.com/SortableJS/Sortable)
+> **[sortable js](https://github.com/SortableJS/Sortable)**
 
 - 드래그하여 리스트 순서를 바꾸는 것은 `Sortable js`를 사용했습니다.
 
