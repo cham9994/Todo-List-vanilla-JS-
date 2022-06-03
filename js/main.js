@@ -321,9 +321,9 @@ function renderTodos(todos) {
 }
 
 // 드래그하여 리스트 순서 변경
-var sortable = Sortable.create(todoEl, {
+let sortable = Sortable.create(todoEl, {
   animation: 150,
-  onEnd: function (e) {
+  onEnd: function () {
     const idList = []
     const todoLiEl = document.querySelectorAll('.todoLi')
     todoLiEl.forEach((item) => {
