@@ -296,7 +296,7 @@ function renderTodos(todos) {
         <button value=${it.id} class="todo-text-parent">
           <span id="todo-text" class="todo-text-${
             it.done
-          }" data-action='edit' data-title=${new Date(it.createdAt)
+          }" data-action='edit' data-title=${new Date(it.updatedAt)
       .toLocaleString()
       .replace(/(\s*)/g, '')
       .substr(0, 15)}>
