@@ -10,6 +10,9 @@ $line-color: #adb5bd;
 }
 
 .container {
+  @media screen and (max-width: 480px) {
+    width: auto;
+  }
   background-size: cover;
   background-repeat: no-repeat;
   background-size: 100% 50%;
@@ -27,6 +30,14 @@ body {
 }
 
 .wrapper {
+  @media screen and (max-width: 480px) {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    margin-top: 1rem;
+  }
   width: 450px;
   margin: 0 auto;
   display: flex;
@@ -48,6 +59,9 @@ section.header {
 
 // INPUT 
 section.input {
+  @media screen and (max-width: 480px) {
+    width: 350px;
+  }
   background: $white-color;
   border-radius: 0.5rem;
   padding: 1rem 0 1rem 1rem;
@@ -89,6 +103,9 @@ section.input {
   outline: 0px solid transparent;
 }
 section.task-list {
+  @media screen and (max-width: 480px) {
+    width: 350px;
+  }
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
   width: 450px;
   border-top-left-radius:0.5rem;
@@ -167,6 +184,10 @@ section.task-list {
 
 // Loading Animation
 .control-menu {
+  @media screen and (max-width: 480px) {
+    width: 350px;
+    font-size: 0.6rem;
+  }
   width: 450px;
   padding: 0.3rem;
   border-bottom-left-radius: 0.5rem;
@@ -180,6 +201,9 @@ section.task-list {
   gap: 1.5rem;
   > div {
     button {
+      @media screen and (max-width: 480px) {
+        font-size: 0.5rem;
+      }
       outline: none;
       border: none;
       background-color: $icon-color;
@@ -190,6 +214,10 @@ section.task-list {
         color: #000;
       }
       .count {
+        @media screen and (max-width: 480px) {
+          font-size: 0.5rem;
+          vertical-align: middle;
+        }
         color: #ff006e;
         font-size: 1.1rem;
         vertical-align: top;
