@@ -3,7 +3,8 @@ import axios from 'axios'
 import Sortable from 'sortablejs'
 
 // API 정보
-const API_URL = 'https://asia-northeast3-heropy-api.cloudfunctions.net/api/todos'
+const API_URL =
+  'https://asia-northeast3-heropy-api.cloudfunctions.net/api/todos'
 const API_KEY = 'FcKdtJs202204'
 const USER_NAME = 'KDT2_JangGyeongChan'
 
@@ -53,7 +54,7 @@ clearCompleteItemsBtn.addEventListener('click', clearCompleteTodos)
 todoEl.addEventListener('click', (e) => onEdit(e))
 
 // 처음 실행
-async function Init() {
+async function init() {
   await getTodo()
   renderTodos(todos)
 }
@@ -187,7 +188,7 @@ function onCheck(value) {
 
 // 남은 목록 개수 표시
 function countTodos(todos) {
-  const yetTodos = todos.filter((item) => item.done === false)
+  const yetTodos = todos.filter((item) => !item.done)
   let leftItems = yetTodos.length
   if (leftItems === 0) {
     countEl.innerText = ''
@@ -204,7 +205,7 @@ function toggleComplete(isComplete) {
 
 // 모든 완료 목록 삭제
 async function clearCompleteTodos() {
-  const completeItems = todos.filter((item) => item.done === true)
+  const completeItems = todos.filter((item) => !item.done)
   const idArray = []
   completeItems.map((item) => idArray.push(item.id))
   idArray.forEach((id) => {
@@ -239,7 +240,10 @@ async function putOrderTodo(value) {
 async function onEdit(e) {
   const todosTextEl = document.querySelectorAll('#todo-text')
   todosTextEl.forEach((editText) => {
-    if (e.target === editText && e.target.classList.contains('todo-text-false')) {
+    if (
+      e.target === editText &&
+      e.target.classList.contains('todo-text-false')
+    ) {
       editText.contentEditable = true
       editText.focus()
       editText.addEventListener('keydown', (e) => {
@@ -333,4 +337,4 @@ let sortable = Sortable.create(todoEl, {
   }
 })
 
-Init()
+init()
